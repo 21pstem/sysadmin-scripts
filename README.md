@@ -1,4 +1,4 @@
 sysadmin-scripts
 ================
 
-Collection of useful system administration scripts.
+Contains a collection of useful system administration scripts.
