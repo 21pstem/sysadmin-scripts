@@ -19,7 +19,7 @@ function do_db_backup() {
     function trim_backups {
 	arch_files=(`ls -rt $backup_path`) #reverse list of files in an array
         count=${#arch_files[@]}
-	if [ $count > $max_backup_keep ]
+	if [ $count -gt $max_backup_keep ]
 	   then
                del_count=`expr $count - $max_backup_keep`
 	       del_count=`expr $del_count - 1` #normalize for zero based array
