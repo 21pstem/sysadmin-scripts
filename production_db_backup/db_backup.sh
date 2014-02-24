@@ -1,9 +1,9 @@
-#!/bin/sh -x
+#!/bin/bash
 
 umask 077
-max_backup_keep=2
+max_backup_keep=30
 
-function do_db_backup() {
+function do_db_backup () {
     config_file=$1
     backup_path=$2
     environment=$3
@@ -16,7 +16,7 @@ function do_db_backup() {
       echo $value
     }
 
-    function trim_backups {
+    function trim_backups () {
 	arch_files=(`ls -rt $backup_path`) #reverse list of files in an array
         count=${#arch_files[@]}
 	if [ $count -gt $max_backup_keep ]
@@ -26,7 +26,7 @@ function do_db_backup() {
                for i in $(seq 0 $del_count)
                  do
                    rm $backup_path/${arch_files[$i]}
-                 done
+               done
         fi
     }
     
@@ -36,13 +36,11 @@ function do_db_backup() {
     database=`get_field database`
 
     date=`date '+%Y-%m-%d_%H:%M:%S'`
-    backup_file=database_${environment}_${database}_$date.bz2
+    backup_file=daily_db_${environment}_${database}_$date.bz2
 
     /usr/bin/mysqldump -u $user --password=$pwd --databases $database | /usr/bin/bzip2 -9 > $backup_path/$backup_file
     trim_backups
 }
 
-### DO  ####
-do_db_backup database.yml backups_location custom_envname
-
+do_db_backup database.yml db_backups production
 
