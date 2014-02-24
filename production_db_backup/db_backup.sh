@@ -36,7 +36,7 @@ function do_db_backup () {
     database=`get_field database`
 
     date=`date '+%Y-%m-%d_%H:%M:%S'`
-    backup_file=daily_db_${environment}_${database}_$date.bz2
+    backup_file=daily_db_${environment}_${database}_$date.sql.bz2
 
     /usr/bin/mysqldump -u $user --password=$pwd --databases $database | /usr/bin/bzip2 -9 > $backup_path/$backup_file
     trim_backups
