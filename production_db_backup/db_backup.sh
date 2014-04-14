@@ -44,3 +44,5 @@ function do_db_backup () {
 
 do_db_backup database.yml db_backups production
 
+# note deadman snitch call is place here in production and egypt
+
